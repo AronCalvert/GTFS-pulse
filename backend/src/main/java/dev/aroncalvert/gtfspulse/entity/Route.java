@@ -4,9 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Setter;
 
 @Entity
 @Table(name = "routes")
+@Setter
 public class Route {
 
   @Column(name = "route_id")

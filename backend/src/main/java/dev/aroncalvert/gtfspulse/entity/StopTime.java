@@ -7,10 +7,12 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Setter;
 
 @Entity
 @Table(name = "stop_times")
 @IdClass(StopTimeId.class)
+@Setter
 public class StopTime {
 
   @ManyToOne
@@ -19,10 +21,10 @@ public class StopTime {
   Trip trip;
 
   @Column(name = "arrival_time")
-  String arrivalTime;
+  int arrivalTime;
 
   @Column(name = "departure_time")
-  String departureTime;
+  int departureTime;
 
   @ManyToOne
   @JoinColumn(name = "stop_id")
