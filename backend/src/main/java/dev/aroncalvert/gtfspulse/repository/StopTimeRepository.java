@@ -4,6 +4,7 @@ import dev.aroncalvert.gtfspulse.entity.StopTimeId;
 import dev.aroncalvert.gtfspulse.entity.Trip;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,9 @@ public interface StopTimeRepository extends JpaRepository<StopTime, StopTimeId> 
 
   List<StopTime> findByTripAndStopSequenceGreaterThanOrderByStopSequenceAsc(Trip trip, int stopSequence);
 
-  StopTime findByTripAndStop(Trip trip, Stop stop);
+  List<StopTime> findByTripAndStopSequenceLessThanEqualOrderByStopSequenceAsc(Trip trip, int stopSequence);
+
+  Optional<StopTime> findFirstByTripAndStopSequenceGreaterThanOrderByStopSequenceAsc(Trip trip, int stopSequence);
+
+  Optional<StopTime> findByTripAndStop(Trip trip, Stop stop);
 }

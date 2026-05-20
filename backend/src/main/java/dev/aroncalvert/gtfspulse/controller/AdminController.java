@@ -9,7 +9,7 @@ import dev.aroncalvert.gtfspulse.service.GtfsDataLoaderService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/v1/admin/")
+@RequestMapping("/admin/")
 @RequiredArgsConstructor
 public class AdminController {
 

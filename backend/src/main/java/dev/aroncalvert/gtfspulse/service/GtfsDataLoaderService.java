@@ -206,8 +206,8 @@ public class GtfsDataLoaderService {
     row = reader.readMap();
     while (row != null) {
       var stopTime = new StopTime();
-      Trip trip = entityManager.getReference(Trip.class, row.get("trip_id"));
-      Stop stop = entityManager.getReference(Stop.class, row.get("stop_id"));
+      Trip trip = tripMap.get(row.get("trip_id"));
+      Stop stop = stopMap.get(row.get("stop_id"));
 
       if (trip == null || stop == null) {
         row = reader.readMap();

@@ -22,21 +22,33 @@ public class BusPositionService {
     List<GtfsRealtime.FeedEntity> entities = feed.getEntityList();
 
     for (GtfsRealtime.FeedEntity entity : entities) {
-      var vehicle = entity.getVehicle();
-      var trip = vehicle.getTrip();
-      var position = vehicle.getPosition();
-      var vehicleInfo = vehicle.getVehicle();
+      if (!entity.hasVehicle())
+        continue;
+
+      var vehiclePosition = entity.getVehicle();
+      var trip = vehiclePosition.getTrip();
+      var position = vehiclePosition.getPosition();
+      var vehicleDescriptor = vehiclePosition.getVehicle();
 
       BusData busData = new BusData(
           trip.getTripId(),
           trip.getRouteId(),
-          vehicleInfo.getId(),
+          vehicleDescriptor.getId(),
           position.getLatitude(),
           position.getLongitude(),
-          position.getBearing());
+          position.getBearing(),
+          position.getSpeed(),
+          vehiclePosition.getCurrentStopSequence(),
+          vehiclePosition.getStopId(),
+          vehiclePosition.getCurrentStatus().name(),
+          vehiclePosition.getTimestamp());
 
       map.put(trip.getTripId(), busData);
       kafkaTemplate.send("bus-positions", trip.getTripId(), busData);
     }
+  }
+
+  public BusData getPosition(String tripId) {
+    return map.get(tripId);
   }
 }

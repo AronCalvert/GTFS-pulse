@@ -6,5 +6,10 @@ public record BusData(
     String vehicleId,
     double latitude,
     double longitude,
-    double bearing) {
+    double bearing,
+    float speed,
+    int currentStopSequence,
+    String stopId,
+    String currentStatus,
+    long timestamp) {
 }

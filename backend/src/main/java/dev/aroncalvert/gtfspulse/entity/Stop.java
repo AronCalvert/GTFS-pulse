@@ -10,6 +10,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "stops")
 @Setter
+@Getter
 public class Stop {
 
   // stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station

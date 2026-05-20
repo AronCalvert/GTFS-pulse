@@ -10,6 +10,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "trips")
 @Setter
+@Getter
 public class Trip {
 
   // route_id service_id trip_id trip_headsign trip_short_name direction_id
