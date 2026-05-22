@@ -110,6 +110,50 @@ header {
 .leaflet-tile      { filter: brightness(0.55) saturate(0.4) hue-rotate(185deg); }
 .leaflet-container { background: var(--bg); }
 
+/* ── Leaflet popup dark theme ── */
+.leaflet-popup-content-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  color: var(--text);
+}
+.leaflet-popup-tip { background: var(--surface); }
+.leaflet-popup-close-button { color: var(--muted) !important; }
+
+.stop-popup { font-family: 'DM Sans', sans-serif; padding: 2px 0; }
+.stop-name  { font-size: 13px; font-weight: 500; color: var(--text); }
+.stop-meta  { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+/* ── Arrivals ── */
+.arrival-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+}
+.arrival-row:last-child { border-bottom: none; }
+.arrival-route {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  min-width: 36px;
+}
+.arrival-headsign {
+  font-size: 12px;
+  color: var(--text);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.arrival-time {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
 /* ── Toast ── */
 #toast {
   position: fixed;

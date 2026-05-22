@@ -6,32 +6,22 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.transit.realtime.GtfsRealtime;
-
-import dev.aroncalvert.gtfspulse.dto.BusData;
+import dev.aroncalvert.gtfspulse.dto.VehicleData;
 import dev.aroncalvert.gtfspulse.dto.StopTimeDTO;
-import dev.aroncalvert.gtfspulse.service.BusPositionService;
+import dev.aroncalvert.gtfspulse.service.VehiclePositionService;
 import dev.aroncalvert.gtfspulse.service.TripService;
 
 @RestController
-@RequestMapping("/bus")
+@RequestMapping("/vehicle")
 @RequiredArgsConstructor
-public class BusController {
+public class VehicleController {
 
-  private final BusPositionService busPositionService;
+  private final VehiclePositionService vehiclePositionService;
   private final TripService tripService;
 
-  @PostMapping("/update")
-  public ResponseEntity<String> updateBusPositions(@RequestBody byte[] payload) throws InvalidProtocolBufferException {
-    var feed = GtfsRealtime.FeedMessage.parseFrom(payload);
-    busPositionService.updatePositions(feed);
-    return ResponseEntity.ok().build();
-  }
-
   @GetMapping("/{trip_id}")
-  public ResponseEntity<BusData> getBusPosition(@PathVariable("trip_id") String tripId) {
-    return ResponseEntity.ok(busPositionService.getPosition(tripId));
+  public ResponseEntity<VehicleData> getVehiclePosition(@PathVariable("trip_id") String tripId) {
+    return ResponseEntity.ok(vehiclePositionService.getPosition(tripId));
   }
 
   @GetMapping("/{trip_id}/stops")
@@ -41,14 +31,14 @@ public class BusController {
 
   @GetMapping("/{trip_id}/stops/passed")
   public ResponseEntity<List<StopTimeDTO>> getStopsPassed(@PathVariable("trip_id") String tripId) {
-    BusData position = busPositionService.getPosition(tripId);
+    VehicleData position = vehiclePositionService.getPosition(tripId);
     int stopSequence = position.currentStopSequence();
     return ResponseEntity.ok(tripService.getStopsPassed(tripId, stopSequence));
   }
 
   @GetMapping("/{trip_id}/stops/next")
   public ResponseEntity<StopTimeDTO> getNextStop(@PathVariable("trip_id") String tripId) {
-    BusData position = busPositionService.getPosition(tripId);
+    VehicleData position = vehiclePositionService.getPosition(tripId);
     int stopSequence = position.currentStopSequence();
     return ResponseEntity.ok(tripService.getNextStop(tripId, stopSequence));
   }

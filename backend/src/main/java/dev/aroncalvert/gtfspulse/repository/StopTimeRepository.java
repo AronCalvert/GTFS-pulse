@@ -23,4 +23,6 @@ public interface StopTimeRepository extends JpaRepository<StopTime, StopTimeId> 
   Optional<StopTime> findFirstByTripAndStopSequenceGreaterThanOrderByStopSequenceAsc(Trip trip, int stopSequence);
 
   Optional<StopTime> findByTripAndStop(Trip trip, Stop stop);
+
+  List<StopTime> findByStopOrderByArrivalTimeAsc(Stop stop);
 }

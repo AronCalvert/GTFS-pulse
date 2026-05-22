@@ -45,7 +45,7 @@ public class GtfsDataLoaderService {
   private final StopRepository stopRepository;
   private final StopTimeRepository stopTimeRepository;
   private final TripRepository tripRepository;
-  private Path gtfsPath = Paths.get("../data");
+  private Path gtfsPath = Paths.get("/data");
 
   @PersistenceContext
   private EntityManager entityManager;

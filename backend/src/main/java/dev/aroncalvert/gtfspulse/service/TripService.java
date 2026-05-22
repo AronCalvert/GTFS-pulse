@@ -48,6 +48,6 @@ public class TripService {
     StopTime stopTime = stopTimeRepository
         .findFirstByTripAndStopSequenceGreaterThanOrderByStopSequenceAsc(trip, stopSequence)
         .orElseThrow(() -> new NoSuchElementException("No next stop time for trip " + tripId));
-    stopTimeMapper.toDto(stopTime);
+    return stopTimeMapper.toDto(stopTime);
   }
 }

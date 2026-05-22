@@ -26,7 +26,8 @@ def gtfsr():
 
 if __name__ == "__main__":
     fleet.spawn_fleet("09:00:00")
+    data._save_cache()
     t = threading.Thread(target=simulation_loop, daemon=True)
     t.start()
-    app.run(port=5000)
+    app.run(host='0.0.0.0', port=5000, use_reloader=False)
 

@@ -1,5 +1,7 @@
 package dev.aroncalvert.gtfspulse.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,12 @@ public class StopController {
   }
 
   @GetMapping("/{stop_id}/arrivals")
-  public ResponseEntity<ArrivalDTO> getUpcomingStopArrivals(@PathVariable("stop_id") String stopId) {
+  public ResponseEntity<List<ArrivalDTO>> getUpcomingStopArrivals(@PathVariable("stop_id") String stopId) {
+    return ResponseEntity.ok(stopService.getArrivals(stopId));
+  }
 
+  @GetMapping
+  public ResponseEntity<List<StopDTO>> getAllStops() {
+    return ResponseEntity.ok(stopService.getAllStops());
   }
 }

@@ -1,7 +1,6 @@
-package dev.aroncalvert.gtfspulse.service;
+package dev.aroncalvert.gtfs_ingestor;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -10,13 +9,10 @@ import com.google.transit.realtime.GtfsRealtime;
 
 import lombok.RequiredArgsConstructor;
 
-import dev.aroncalvert.gtfspulse.dto.BusData;
-
 @Service
 @RequiredArgsConstructor
-public class BusPositionService {
-  private final ConcurrentHashMap<String, BusData> map = new ConcurrentHashMap<>();
-  private final KafkaTemplate<String, BusData> kafkaTemplate;
+public class VehiclePositionService {
+  private final KafkaTemplate<String, VehicleData> kafkaTemplate;
 
   public void updatePositions(GtfsRealtime.FeedMessage feed) {
     List<GtfsRealtime.FeedEntity> entities = feed.getEntityList();
@@ -30,7 +26,7 @@ public class BusPositionService {
       var position = vehiclePosition.getPosition();
       var vehicleDescriptor = vehiclePosition.getVehicle();
 
-      BusData busData = new BusData(
+      VehicleData vehicleData = new VehicleData(
           trip.getTripId(),
           trip.getRouteId(),
           vehicleDescriptor.getId(),
@@ -43,12 +39,7 @@ public class BusPositionService {
           vehiclePosition.getCurrentStatus().name(),
           vehiclePosition.getTimestamp());
 
-      map.put(trip.getTripId(), busData);
-      kafkaTemplate.send("bus-positions", trip.getTripId(), busData);
+      kafkaTemplate.send("vehicle-positions", trip.getTripId(), vehicleData);
     }
-  }
-
-  public BusData getPosition(String tripId) {
-    return map.get(tripId);
   }
 }

@@ -8,3 +8,4 @@ venv/
 target/
 *.jar
 .idea/
+gtfs-tmux.sh

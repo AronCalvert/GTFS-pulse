@@ -1,6 +1,6 @@
 package dev.aroncalvert.gtfspulse.dto;
 
-public record BusData(
+public record VehicleData(
     String tripId,
     String routeId,
     String vehicleId,
