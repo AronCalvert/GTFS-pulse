@@ -20,6 +20,11 @@ public class RouteController {
 
   private final RouteService routeService;
 
+  @GetMapping
+  public ResponseEntity<List<RouteDTO>> getAllRoutes() {
+    return ResponseEntity.ok(routeService.getAllRoutes());
+  }
+
   @GetMapping("/{route_id}")
   public ResponseEntity<RouteDTO> getRoute(@PathVariable("route_id") String routeId) {
     return ResponseEntity.ok(routeService.getRouteById(routeId));

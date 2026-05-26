@@ -1,5 +1,6 @@
 import threading
 import time
+from datetime import datetime
 from provider import StaticDataProvider
 from manager import FleetManager
 from flask import Flask, Response  # type: ignore
@@ -17,15 +18,22 @@ def simulation_loop():
         time.sleep(1)
 
 
-@app.route("/gtfsr")
-def gtfsr():
-    feed = fleet.serialize_fleet()
+@app.route("/gtfsr/vehicles")
+def gtfsr_vehicles():
+    feed = fleet.serialize_vehicle_positions()
+    payload = feed.SerializeToString()
+    return Response(payload, mimetype="application/x-protobuf")
+
+
+@app.route("/gtfsr/trips")
+def gtfsr_trips():
+    feed = fleet.serialize_trip_updates()
     payload = feed.SerializeToString()
     return Response(payload, mimetype="application/x-protobuf")
 
 
 if __name__ == "__main__":
-    fleet.spawn_fleet("09:00:00")
+    fleet.spawn_fleet(datetime.now().strftime("%H:%M:%S"))
     data._save_cache()
     t = threading.Thread(target=simulation_loop, daemon=True)
     t.start()

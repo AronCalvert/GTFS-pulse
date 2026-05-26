@@ -47,6 +47,13 @@ services:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       GTFS_SIMULATOR_URL: http://simulator:5000
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
   backend:
     build: ./backend
     depends_on:

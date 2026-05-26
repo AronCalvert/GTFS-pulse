@@ -28,6 +28,12 @@ public class RouteService {
         .orElseThrow(() -> new NoSuchElementException("No route found with id: " + routeId));
   }
 
+  public List<RouteDTO> getAllRoutes() {
+    return routeRepository.findAll().stream()
+        .map(routeMapper::toDto)
+        .toList();
+  }
+
   public List<TripDTO> getTripsForRoute(String routeId) {
     return tripRepository.findByRouteId(routeId).stream()
         .map(tripMapper::toDto)

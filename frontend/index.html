@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GTFS Pulse — Live Fleet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="/styles/main.css"/>
+  <link rel="stylesheet" href="/styles/auth.css"/>
+  <link rel="stylesheet" href="/styles/favourites.css"/>
+  <link rel="stylesheet" href="/styles/search.css"/>
+</head>
+<body>
+
+<header>
+  <div class="logo">GTFS<span>PULSE</span></div>
+  <div class="status-pill">
+    <div class="dot" id="dot"></div>
+    <span id="status-text">CONNECTING</span>
+  </div>
+  <div class="auth-actions" id="auth-actions"></div>
+</header>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-label">Active Vehicles</div>
+    <div class="stat-value" id="stat-vehicles">0</div>
+  </div>
+  <div class="stat">
+    <div class="stat-label">Last Update</div>
+    <div class="stat-value" id="stat-time">--:--:--</div>
+  </div>
+  <div class="search-widget" id="search-widget">
+    <div class="search-input-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="search-input" id="search-input" type="text" placeholder="Search stops..." autocomplete="off" />
+    </div>
+    <ul class="search-results" id="search-results"></ul>
+  </div>
+</div>
+
+<div id="map"></div>
+<div id="toast"></div>
+
+<div class="favourites-widget" id="favourites-widget" style="display:none">
+  <div class="favourites-header">
+    <span class="favourites-title">FAVOURITES</span>
+  </div>
+  <ul class="favourites-list" id="favourites-list"></ul>
+</div>
+
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-tab="login">Login</button>
+      <button class="modal-tab" data-tab="register">Register</button>
+    </div>
+
+    <form class="modal-form" id="login-form" style="display:flex">
+      <input class="modal-input" id="login-email" type="email" placeholder="Email" required />
+      <input class="modal-input" id="login-password" type="password" placeholder="Password" required />
+      <button class="modal-submit" type="submit">SIGN IN</button>
+    </form>
+
+    <form class="modal-form" id="register-form" style="display:none">
+      <input class="modal-input" id="reg-username" type="text" placeholder="Username" required />
+      <input class="modal-input" id="reg-email" type="email" placeholder="Email" required />
+      <input class="modal-input" id="reg-password" type="password" placeholder="Password" required />
+      <button class="modal-submit" type="submit">CREATE ACCOUNT</button>
+    </form>
+
+    <div class="modal-error" id="auth-error"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script type="module" src="/src/main.js"></script>
+
+</body>
+</html>

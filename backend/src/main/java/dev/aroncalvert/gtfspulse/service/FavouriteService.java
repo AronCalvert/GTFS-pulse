@@ -44,7 +44,7 @@ public class FavouriteService {
     if (Objects.equals(user.getId(), favourite.getUserId())) {
       return favouriteMapper.toDto(favourite);
     } else {
-      throw new BadCredentialsException("can't set other peoples favourites");
+      throw new BadCredentialsException("can't get other peoples favourites");
     }
   }
 
